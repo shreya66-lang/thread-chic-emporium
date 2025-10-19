@@ -3,6 +3,7 @@ import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Loader2 } from "lucide-react";
+import heroImage from "@/assets/khadi-hero.jpg";
 
 const Index = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -25,26 +26,40 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+      <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Thread Chic</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-primary">Khadi Sanskriti</h1>
           <CartDrawer />
         </div>
       </header>
 
-      <section className="relative bg-gradient-to-br from-primary to-accent text-primary-foreground py-20 md:py-32">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Elevate Your Style
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
+        <img 
+          src={heroImage} 
+          alt="Handwoven Khadi Fabric" 
+          className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40"
+        />
+        <div className="relative container mx-auto px-4 py-24 md:py-40 text-center">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-foreground drop-shadow-lg animate-fade-in">
+            Heritage in Every Thread
           </h2>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
-            Discover our curated collection of premium fashion pieces designed for the modern wardrobe
+          <p className="text-lg md:text-2xl max-w-3xl mx-auto text-foreground/90 mb-4 drop-shadow">
+            Discover the timeless beauty of handwoven Khadi - celebrating India's rich textile tradition
+          </p>
+          <p className="text-base md:text-lg text-foreground/80 max-w-2xl mx-auto italic">
+            "खादी भारत की संस्कृति और स्वतंत्रता का प्रतीक है"
           </p>
         </div>
       </section>
 
-      <main className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold mb-8">Our Collection</h2>
+      <main className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Our Khadi Collection</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Each piece is handcrafted with love, supporting local artisans and preserving traditional weaving techniques
+          </p>
+        </div>
         
         {loading ? (
           <div className="flex items-center justify-center py-20">

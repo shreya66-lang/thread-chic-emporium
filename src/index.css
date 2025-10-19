@@ -8,40 +8,42 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
+    --background: 42 45% 98%;
+    --foreground: 25 40% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 25 40% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 25 40% 15%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 28 85% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 142 45% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 40 30% 92%;
+    --muted-foreground: 25 25% 45%;
 
-    --accent: 0 0% 9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 45 90% 58%;
+    --accent-foreground: 25 40% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 9%;
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 28 85% 55%;
 
     --radius: 0.5rem;
     
-    /* Fashion-focused design tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 9%) 0%, hsl(0 0% 20%) 100%);
+    /* Vibrant Indian Khadi design tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(28 85% 55%) 0%, hsl(142 45% 45%) 100%);
+    --gradient-warm: linear-gradient(to right, hsl(28 85% 55%), hsl(45 90% 58%));
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --shadow-elegant: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
+    --shadow-elegant: 0 4px 20px -4px hsl(28 85% 55% / 0.3);
+    --shadow-vibrant: 0 8px 32px -8px hsl(28 85% 55% / 0.4);
 
     --sidebar-background: 0 0% 98%;
 
@@ -61,36 +63,38 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 9%;
-    --foreground: 0 0% 98%;
+    --background: 25 35% 12%;
+    --foreground: 42 45% 95%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 98%;
+    --card: 25 30% 15%;
+    --card-foreground: 42 45% 95%;
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 25 30% 15%;
+    --popover-foreground: 42 45% 95%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 28 85% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 142 40% 40%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 25 20% 20%;
+    --muted-foreground: 40 20% 65%;
 
-    --accent: 0 0% 98%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 45 85% 62%;
+    --accent-foreground: 25 40% 15%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 83%;
+    --border: 25 20% 22%;
+    --input: 25 20% 22%;
+    --ring: 28 85% 60%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%) 0%, hsl(0 0% 15%) 100%);
-    --shadow-elegant: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
+    --gradient-hero: linear-gradient(135deg, hsl(28 85% 45%) 0%, hsl(142 45% 35%) 100%);
+    --gradient-warm: linear-gradient(to right, hsl(28 85% 50%), hsl(45 90% 55%));
+    --shadow-elegant: 0 4px 20px -4px hsl(28 85% 55% / 0.5);
+    --shadow-vibrant: 0 8px 32px -8px hsl(28 85% 55% / 0.6);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
