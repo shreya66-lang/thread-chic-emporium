@@ -3,6 +3,7 @@ import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Loader2, Sparkles } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import heroImage from "@/assets/priyasi-hero.jpg";
 import outfit1 from "@/assets/khadi-outfit-1.jpg";
 import outfit2 from "@/assets/khadi-outfit-2.jpg";
@@ -31,7 +32,7 @@ const Index = () => {
       <header className="border-b border-primary/10 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-            preyasi
+            Preyasi
           </h1>
           <CartDrawer />
         </div>
@@ -60,35 +61,81 @@ const Index = () => {
       </section>
 
       <section className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
-          <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300">
-            <img 
-              src={outfit1} 
-              alt="Elegant Khadi Fashion" 
-              className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Timeless Kurtas</h3>
-                <p className="text-white/90">Handcrafted elegance for every occasion</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300">
-            <img 
-              src={outfit2} 
-              alt="Premium Khadi Sarees" 
-              className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Graceful Sarees</h3>
-                <p className="text-white/90">Draped in tradition, styled for you</p>
-              </div>
-            </div>
-          </div>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Shop by Category
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Explore our curated collection of handwoven kurtas and elegant sarees
+          </p>
         </div>
+
+        <Tabs defaultValue="kurtas" className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12">
+            <TabsTrigger value="kurtas">Kurtas</TabsTrigger>
+            <TabsTrigger value="sarees">Sarees</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="kurtas">
+            <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300 mb-8">
+              <img 
+                src={outfit1} 
+                alt="Elegant Khadi Kurtas" 
+                className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Timeless Kurtas</h3>
+                  <p className="text-white/90">Handcrafted elegance for every occasion</p>
+                </div>
+              </div>
+            </div>
+            
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {products
+                  .filter(product => product.node.productType === "Kurta")
+                  .map((product) => (
+                    <ProductCard key={product.node.id} product={product} />
+                  ))}
+              </div>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="sarees">
+            <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300 mb-8">
+              <img 
+                src={outfit2} 
+                alt="Premium Khadi Sarees" 
+                className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Graceful Sarees</h3>
+                  <p className="text-white/90">Draped in tradition, styled for you</p>
+                </div>
+              </div>
+            </div>
+            
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {products
+                  .filter(product => product.node.productType === "Saree")
+                  .map((product) => (
+                    <ProductCard key={product.node.id} product={product} />
+                  ))}
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </section>
 
       <main className="container mx-auto px-4 pb-16">
