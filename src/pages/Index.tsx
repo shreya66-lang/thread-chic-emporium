@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
 import { CartDrawer } from "@/components/CartDrawer";
-import { Loader2, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Loader2, Sparkles, ArrowRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import heroImage from "@/assets/priyasi-hero.jpg";
 import outfit1 from "@/assets/khadi-outfit-1.jpg";
@@ -77,19 +79,24 @@ const Index = () => {
           </TabsList>
           
           <TabsContent value="kurtas">
-            <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300 mb-8">
-              <img 
-                src={outfit1} 
-                alt="Elegant Khadi Kurtas" 
-                className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Timeless Kurtas</h3>
-                  <p className="text-white/90">Handcrafted elegance for every occasion</p>
+            <Link to="/collections/kurtas" className="block">
+              <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300 mb-8">
+                <img 
+                  src={outfit1} 
+                  alt="Elegant Khadi Kurtas" 
+                  className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
+                  <div className="flex-1">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Timeless Kurtas</h3>
+                    <p className="text-white/90">Handcrafted elegance for every occasion</p>
+                  </div>
+                  <Button variant="secondary" size="lg" className="gap-2">
+                    Browse Kurtas <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
-            </div>
+            </Link>
             
             {loading ? (
               <div className="flex items-center justify-center py-20">
@@ -107,19 +114,24 @@ const Index = () => {
           </TabsContent>
           
           <TabsContent value="sarees">
-            <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300 mb-8">
-              <img 
-                src={outfit2} 
-                alt="Premium Khadi Sarees" 
-                className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Graceful Sarees</h3>
-                  <p className="text-white/90">Draped in tradition, styled for you</p>
+            <Link to="/collections/sarees" className="block">
+              <div className="relative group overflow-hidden rounded-2xl shadow-elegant hover:shadow-vibrant transition-all duration-300 mb-8">
+                <img 
+                  src={outfit2} 
+                  alt="Premium Khadi Sarees" 
+                  className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent flex items-end p-8">
+                  <div className="flex-1">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Graceful Sarees</h3>
+                    <p className="text-white/90">Draped in tradition, styled for you</p>
+                  </div>
+                  <Button variant="secondary" size="lg" className="gap-2">
+                    Browse Sarees <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
-            </div>
+            </Link>
             
             {loading ? (
               <div className="flex items-center justify-center py-20">
@@ -138,13 +150,13 @@ const Index = () => {
         </Tabs>
       </section>
 
-      <main className="container mx-auto px-4 pb-16">
+      <section className="container mx-auto px-4 pb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Our Khadi Collection
+            Featured Collection
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Each piece tells a story of craftsmanship, supporting local artisans and preserving the art of handloom
+            Curated pieces showcasing the finest craftsmanship from our artisans
           </p>
         </div>
         
@@ -160,13 +172,36 @@ const Index = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.node.id} product={product} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {products.slice(0, 6).map((product, index) => (
+                <ProductCard 
+                  key={product.node.id} 
+                  product={product}
+                  badge={index < 2 ? "featured" : index < 4 ? "new" : null}
+                />
+              ))}
+            </div>
+            
+            <div className="text-center">
+              <Link to="/collections/all">
+                <Button size="lg" className="gap-2 group">
+                  View All Collection
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+          </>
         )}
-      </main>
+      </section>
+
+      <footer className="border-t border-border/40 bg-secondary/20 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-muted-foreground">
+            Handcrafted with love • Supporting local artisans • Preserving tradition
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
