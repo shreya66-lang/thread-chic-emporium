@@ -3,7 +3,7 @@ import { toast } from "sonner";
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'thread-chic-emporium-1bu1y.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = 'b0cc7d6a5b7b0ade0fcc8f2b2a0e72ff';
+const SHOPIFY_STOREFRONT_TOKEN = '5e4638134183178803a6f0e7271a8285';
 
 export interface ShopifyProduct {
   node: {
