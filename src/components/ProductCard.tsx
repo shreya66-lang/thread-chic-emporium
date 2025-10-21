@@ -57,45 +57,48 @@ export const ProductCard = ({ product, badge = null }: ProductCardProps) => {
   };
 
   return (
-    <Link to={`/product/${node.handle}`}>
-      <Card className="group cursor-pointer overflow-hidden border-border hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
-        <div className="aspect-square overflow-hidden bg-secondary relative">
-          {badgeConfig && (
-            <Badge className={`absolute top-3 right-3 z-10 ${badgeConfig.className} flex items-center gap-1`}>
-              <badgeConfig.icon className="w-3 h-3" />
-              {badgeConfig.label}
-            </Badge>
-          )}
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={node.title}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-muted-foreground">No image</span>
-            </div>
-          )}
-        </div>
+    <Link to={`/product/${node.handle}`} className="group">
+      <div className="relative overflow-hidden bg-secondary aspect-[3/4] mb-6">
+        {badgeConfig && (
+          <Badge className={`absolute top-4 right-4 z-10 ${badgeConfig.className} flex items-center gap-1 text-xs tracking-wider`}>
+            <badgeConfig.icon className="w-3 h-3" />
+            {badgeConfig.label}
+          </Badge>
+        )}
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={node.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-muted-foreground text-sm">No image</span>
+          </div>
+        )}
         
-        <CardContent className="p-4">
-          <h3 className="font-semibold text-lg mb-2 truncate">{node.title}</h3>
-          <p className="text-xl font-bold">
-            {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
-          </p>
-        </CardContent>
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
         
-        <CardFooter className="p-4 pt-0">
+        {/* Quick add button on hover */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <Button 
             className="w-full"
             onClick={handleAddToCart}
             disabled={!defaultVariant?.availableForSale}
+            size="sm"
           >
             {defaultVariant?.availableForSale ? 'Add to Cart' : 'Sold Out'}
           </Button>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
+      
+      <div className="space-y-2">
+        <h3 className="font-medium text-sm tracking-wide uppercase">{node.title}</h3>
+        <p className="text-sm text-muted-foreground">
+          {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+        </p>
+      </div>
     </Link>
   );
 };

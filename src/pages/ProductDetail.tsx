@@ -102,22 +102,25 @@ export default function ProductDetail() {
   const price = selectedVariant?.price || product.priceRange.minVariantPrice;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
-      <header className="border-b border-primary/10 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
+    <div className="min-h-screen">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-70 transition-opacity">
             <ArrowLeft className="h-5 w-5" />
-            <span className="font-semibold">Back to Store</span>
+            <span className="text-sm font-medium tracking-wider uppercase">Back</span>
+          </Link>
+          <Link to="/" className="text-xl font-bold tracking-tight">
+            PRIYASI
           </Link>
           <CartDrawer />
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+      <main className="container mx-auto px-6 lg:px-12 pt-32 pb-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Product Images */}
-          <div className="space-y-4">
-            <div className="aspect-square bg-secondary/20 rounded-2xl overflow-hidden shadow-elegant">
+          <div className="space-y-6">
+            <div className="aspect-[3/4] bg-secondary overflow-hidden">
               {mainImage ? (
                 <img
                   src={mainImage}
@@ -131,9 +134,9 @@ export default function ProductDetail() {
               )}
             </div>
             {product.images?.edges?.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-4">
                 {product.images.edges.slice(0, 4).map((image: any, idx: number) => (
-                  <div key={idx} className="aspect-square bg-secondary/20 rounded-lg overflow-hidden">
+                  <div key={idx} className="aspect-square bg-secondary overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
                     <img
                       src={image.node.url}
                       alt={`${product.title} view ${idx + 1}`}
@@ -146,37 +149,23 @@ export default function ProductDetail() {
           </div>
 
           {/* Product Info */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8 lg:pt-8">
             <div>
-              {product.productType && (
-                <Badge variant="secondary" className="mb-3">
-                  {product.productType}
-                </Badge>
-              )}
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
                 {product.title}
               </h1>
-              <div className="flex items-baseline gap-3 mb-6">
-                <p className="text-4xl font-bold text-primary">
-                  {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
-                </p>
-                {selectedVariant?.availableForSale ? (
-                  <Badge variant="default" className="bg-green-500/10 text-green-700 dark:text-green-400">
-                    In Stock
-                  </Badge>
-                ) : (
-                  <Badge variant="destructive">Out of Stock</Badge>
-                )}
-              </div>
+              <p className="text-2xl font-medium mb-8">
+                {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+              </p>
             </div>
 
             {/* Variant Selection */}
             {product.options?.length > 0 && (
-              <div className="space-y-6 border-t border-b border-border py-6">
+              <div className="space-y-6 border-t border-border pt-8">
                 {product.options.map((option: any) => (
                   <div key={option.name}>
-                    <label className="block text-lg font-semibold mb-3">
-                      {option.name}: <span className="text-primary">{selectedOptions[option.name]}</span>
+                    <label className="block text-sm font-medium tracking-wider uppercase mb-4">
+                      {option.name}
                     </label>
                     <div className="flex flex-wrap gap-3">
                       {option.values.map((value: string) => {
@@ -185,10 +174,10 @@ export default function ProductDetail() {
                           <button
                             key={value}
                             onClick={() => handleOptionChange(option.name, value)}
-                            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                            className={`px-6 py-3 text-sm font-medium tracking-wide uppercase transition-all border ${
                               isSelected
-                                ? 'bg-primary text-primary-foreground shadow-lg scale-105'
-                                : 'bg-secondary hover:bg-secondary/80 text-foreground border border-border'
+                                ? 'bg-primary text-primary-foreground border-primary'
+                                : 'bg-background border-border hover:border-primary'
                             }`}
                           >
                             {value}
@@ -203,56 +192,46 @@ export default function ProductDetail() {
 
             <Button 
               size="lg"
-              className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all"
+              className="w-full"
               onClick={handleAddToCart}
               disabled={!selectedVariant?.availableForSale}
             >
-              {selectedVariant?.availableForSale ? 'Add to Cart' : 'Sold Out'}
+              {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
             </Button>
 
             {/* Product Description */}
             {product.description && (
-              <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                <h2 className="text-xl font-bold mb-3">About this item</h2>
+              <div className="border-t border-border pt-8">
+                <h2 className="text-sm font-medium tracking-wider uppercase mb-4">Description</h2>
                 <p className="text-muted-foreground leading-relaxed">{product.description}</p>
               </div>
             )}
-          </div>
-        </div>
 
-        {/* Product Details Section */}
-        <div className="bg-card rounded-xl p-8 shadow-sm border border-border">
-          <h2 className="text-2xl font-bold mb-6">Product Details</h2>
-          <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
-            {product.productType && (
-              <div className="flex py-3 border-b border-border">
-                <span className="font-semibold min-w-[140px]">Category:</span>
-                <span className="text-muted-foreground">{product.productType}</span>
-              </div>
-            )}
-            {selectedVariant && (
-              <>
-                <div className="flex py-3 border-b border-border">
-                  <span className="font-semibold min-w-[140px]">Availability:</span>
-                  <span className={selectedVariant.availableForSale ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}>
-                    {selectedVariant.availableForSale ? 'In Stock' : 'Out of Stock'}
-                  </span>
+            {/* Product Details */}
+            <div className="border-t border-border pt-8">
+              <h2 className="text-sm font-medium tracking-wider uppercase mb-4">Details</h2>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Material</span>
+                  <span>Handwoven Khadi</span>
                 </div>
-                {selectedVariant.selectedOptions?.map((opt: any) => (
-                  <div key={opt.name} className="flex py-3 border-b border-border">
-                    <span className="font-semibold min-w-[140px]">{opt.name}:</span>
-                    <span className="text-muted-foreground">{opt.value}</span>
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Origin</span>
+                  <span>India</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-border">
+                  <span className="text-muted-foreground">Care</span>
+                  <span>Hand wash cold</span>
+                </div>
+                {selectedVariant?.availableForSale !== undefined && (
+                  <div className="flex justify-between py-2">
+                    <span className="text-muted-foreground">Availability</span>
+                    <span className={selectedVariant.availableForSale ? "text-green-600" : "text-red-600"}>
+                      {selectedVariant.availableForSale ? 'In Stock' : 'Out of Stock'}
+                    </span>
                   </div>
-                ))}
-              </>
-            )}
-            <div className="flex py-3 border-b border-border">
-              <span className="font-semibold min-w-[140px]">Material:</span>
-              <span className="text-muted-foreground">Handwoven Khadi</span>
-            </div>
-            <div className="flex py-3 border-b border-border">
-              <span className="font-semibold min-w-[140px]">Origin:</span>
-              <span className="text-muted-foreground">India</span>
+                )}
+              </div>
             </div>
           </div>
         </div>

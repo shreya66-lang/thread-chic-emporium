@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { CartDrawer } from "@/components/CartDrawer";
 import { ProductFilters } from "@/components/ProductFilters";
 import { Button } from "@/components/ui/button";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { ShoppingBag, ArrowLeft } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -105,38 +105,27 @@ const Collections = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
-      <header className="border-b border-primary/10 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link to="/">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/">
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-                Preyasi
-              </h1>
-            </Link>
-          </div>
+    <div className="min-h-screen">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-70 transition-opacity">
+            <ArrowLeft className="h-5 w-5" />
+            <span className="text-sm font-medium tracking-wider uppercase">Home</span>
+          </Link>
+          <Link to="/" className="text-xl font-bold tracking-tight">
+            PRIYASI
+          </Link>
           <CartDrawer />
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {getCategoryTitle()}
-          </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            {getCategoryDescription()}
-          </p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-8">
+      <main className="container mx-auto px-6 lg:px-12 pt-32 pb-24">
+        <div className="flex flex-col lg:flex-row gap-12">
           {/* Filters Sidebar */}
           <aside className="lg:w-64 flex-shrink-0">
+            <h2 className="text-2xl font-bold tracking-tight mb-8 uppercase">
+              {getCategoryTitle()}
+            </h2>
             <ProductFilters
               priceRange={priceRange}
               onPriceRangeChange={setPriceRange}
@@ -148,40 +137,45 @@ const Collections = () => {
 
           {/* Products Grid */}
           <div className="flex-1">
-            {/* Sort and Results Count */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <p className="text-muted-foreground">
-                Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
+            <div className="flex items-center justify-between mb-8 pb-6 border-b border-border">
+              <p className="text-sm text-muted-foreground">
+                {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
               </p>
               
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Sort by:</span>
-                <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="featured">Featured</SelectItem>
-                    <SelectItem value="newest">Newest</SelectItem>
-                    <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                    <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="featured">Featured</SelectItem>
+                  <SelectItem value="newest">Newest</SelectItem>
+                  <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                  <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Products Grid */}
             {loading ? (
-              <div className="flex items-center justify-center py-20">
-                <Loader2 className="h-8 w-8 animate-spin" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                {[...Array(9)].map((_, i) => (
+                  <div key={i} className="space-y-4">
+                    <div className="aspect-[3/4] bg-secondary animate-pulse" />
+                    <div className="h-4 bg-secondary animate-pulse w-3/4" />
+                    <div className="h-4 bg-secondary animate-pulse w-1/2" />
+                  </div>
+                ))}
               </div>
             ) : filteredProducts.length === 0 ? (
               <div className="text-center py-20">
-                <p className="text-xl text-muted-foreground mb-4">No products found</p>
-                <p className="text-muted-foreground">Try adjusting your filters</p>
+                <ShoppingBag className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-xl font-medium mb-2">No products found</h3>
+                <p className="text-muted-foreground mb-6">Try adjusting your filters</p>
+                <Button onClick={() => { setPriceRange([0, 10000]); setSelectedSizes([]); }}>
+                  Clear Filters
+                </Button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
                 {filteredProducts.map((product) => (
                   <ProductCard key={product.node.id} product={product} />
                 ))}
@@ -189,9 +183,9 @@ const Collections = () => {
             )}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
-};
+}
 
 export default Collections;
