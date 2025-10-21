@@ -47,9 +47,9 @@ export default function Index() {
               <Menu className="h-6 w-6" />
             </button>
             
-            <Link to="/" className="text-2xl font-bold tracking-tight">
-              PRIYASI
-            </Link>
+          <Link to="/home" className="text-2xl font-bold tracking-tight">
+            PRIYASI
+          </Link>
 
             <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
               <Link to="/collections/all" className="hover:text-primary transition-colors">NEW ARRIVALS</Link>

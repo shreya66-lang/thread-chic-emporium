@@ -91,7 +91,7 @@ export default function ProductDetail() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-        <Link to="/">
+        <Link to="/home">
           <Button>Back to Store</Button>
         </Link>
       </div>
@@ -105,11 +105,11 @@ export default function ProductDetail() {
     <div className="min-h-screen">
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 hover:opacity-70 transition-opacity">
+          <Link to="/home" className="flex items-center gap-3 hover:opacity-70 transition-opacity">
             <ArrowLeft className="h-5 w-5" />
             <span className="text-sm font-medium tracking-wider uppercase">Back</span>
           </Link>
-          <Link to="/" className="text-xl font-bold tracking-tight">
+          <Link to="/home" className="text-xl font-bold tracking-tight">
             PRIYASI
           </Link>
           <CartDrawer />
