@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ShoppingBag, Search, Menu } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
 import { CartDrawer } from "@/components/CartDrawer";
+import { MobileMenu } from "@/components/MobileMenu";
+import { SearchDialog } from "@/components/SearchDialog";
 import heroImage from "@/assets/priyasi-hero.jpg";
 
 export default function Index() {
@@ -43,13 +45,11 @@ export default function Index() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <nav className="container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
-            <button className="lg:hidden">
-              <Menu className="h-6 w-6" />
-            </button>
+            <MobileMenu />
             
-          <Link to="/home" className="text-2xl font-bold tracking-tight">
-            PRIYASI
-          </Link>
+            <Link to="/home" className="text-2xl font-bold tracking-tight">
+              PRIYASI
+            </Link>
 
             <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
               <Link to="/collections/all" className="hover:text-primary transition-colors">NEW ARRIVALS</Link>
@@ -59,9 +59,7 @@ export default function Index() {
             </div>
 
             <div className="flex items-center gap-4">
-              <button className="hidden md:block">
-                <Search className="h-5 w-5" />
-              </button>
+              <SearchDialog />
               <CartDrawer />
             </div>
           </div>
@@ -86,9 +84,11 @@ export default function Index() {
           <p className="text-lg md:text-xl mb-12 tracking-wide max-w-2xl mx-auto">
             Discover the art of handwoven khadi in our new collection
           </p>
-          <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-black">
-            SHOP NOW
-          </Button>
+          <Link to="/collections/all">
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+              SHOP NOW
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -190,7 +190,9 @@ export default function Index() {
             We work with skilled artisans to bring you handwoven khadi garments that celebrate heritage 
             while embracing contemporary design.
           </p>
-          <Button variant="outline">LEARN OUR STORY</Button>
+          <Link to="/about">
+            <Button variant="outline">LEARN OUR STORY</Button>
+          </Link>
         </div>
       </section>
 
@@ -218,18 +220,18 @@ export default function Index() {
             <div>
               <h4 className="font-bold text-sm tracking-wider mb-4">COMPANY</h4>
               <ul className="space-y-2 text-sm opacity-80">
-                <li><a href="#" className="hover:opacity-100 transition-opacity">About Us</a></li>
-                <li><a href="#" className="hover:opacity-100 transition-opacity">Contact</a></li>
-                <li><a href="#" className="hover:opacity-100 transition-opacity">FAQ</a></li>
+                <li><Link to="/about" className="hover:opacity-100 transition-opacity">About Us</Link></li>
+                <li><Link to="/contact" className="hover:opacity-100 transition-opacity">Contact</Link></li>
+                <li><Link to="/faq" className="hover:opacity-100 transition-opacity">FAQ</Link></li>
               </ul>
             </div>
             
             <div>
               <h4 className="font-bold text-sm tracking-wider mb-4">SUPPORT</h4>
               <ul className="space-y-2 text-sm opacity-80">
-                <li><a href="#" className="hover:opacity-100 transition-opacity">Shipping & Returns</a></li>
-                <li><a href="#" className="hover:opacity-100 transition-opacity">Size Guide</a></li>
-                <li><a href="#" className="hover:opacity-100 transition-opacity">Care Instructions</a></li>
+                <li><Link to="/shipping" className="hover:opacity-100 transition-opacity">Shipping & Returns</Link></li>
+                <li><Link to="/size-guide" className="hover:opacity-100 transition-opacity">Size Guide</Link></li>
+                <li><Link to="/care" className="hover:opacity-100 transition-opacity">Care Instructions</Link></li>
               </ul>
             </div>
           </div>
@@ -237,8 +239,8 @@ export default function Index() {
           <div className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-80">
             <p>© 2025 Priyasi. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:opacity-100 transition-opacity">Privacy Policy</a>
-              <a href="#" className="hover:opacity-100 transition-opacity">Terms of Service</a>
+              <Link to="/privacy" className="hover:opacity-100 transition-opacity">Privacy Policy</Link>
+              <Link to="/terms" className="hover:opacity-100 transition-opacity">Terms of Service</Link>
             </div>
           </div>
         </div>
