@@ -112,11 +112,13 @@ const Landing = () => {
             
             {/* Logo with circular frame effect */}
             <div className="relative rounded-full p-8 md:p-12 backdrop-blur-sm bg-white/30 border-2 border-white/50 shadow-2xl">
-              <img
-                src={preyasiLogo}
-                alt="Preyasi"
-                className="relative w-[min(400px,70vw)] h-auto animate-float"
-              />
+              <div className="rounded-full overflow-hidden w-[min(400px,70vw)] aspect-square flex items-center justify-center bg-gradient-to-br from-purple-50/50 via-pink-50/50 to-yellow-50/50">
+                <img
+                  src={preyasiLogo}
+                  alt="Preyasi"
+                  className="w-full h-full object-cover animate-float"
+                />
+              </div>
             </div>
           </div>
         </div>
