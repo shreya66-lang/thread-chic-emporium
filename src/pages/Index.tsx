@@ -40,9 +40,28 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Decorative Background Patterns */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-20">
+        <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="mandala-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+              <circle cx="100" cy="100" r="30" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.3" />
+              <circle cx="100" cy="100" r="20" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.3" opacity="0.4" />
+              <circle cx="100" cy="100" r="10" fill="none" stroke="hsl(var(--chart-1))" strokeWidth="0.3" opacity="0.3" />
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
+                const x = 100 + 25 * Math.cos((angle * Math.PI) / 180);
+                const y = 100 + 25 * Math.sin((angle * Math.PI) / 180);
+                return `<circle key="${i}" cx="${x}" cy="${y}" r="3" fill="hsl(var(--chart-${(i % 5) + 1}))" opacity="0.4" />`;
+              }).join('')}
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#mandala-pattern)" />
+        </svg>
+      </div>
+
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border shadow-lg">
         <nav className="container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
             <MobileMenu />
@@ -68,24 +87,46 @@ export default function Index() {
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden mt-20">
+        {/* Colorful Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-100/30 via-pink-100/30 to-yellow-100/30 z-[1]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(236,72,153,0.15),transparent_40%)] z-[1]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(59,130,246,0.12),transparent_40%)] z-[1]" />
+        
         <div className="absolute inset-0 z-0">
           <img
             src={heroImage}
             alt="Hero"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-pink-900/20 to-orange-900/30" />
         </div>
+
+        {/* Decorative Geometric Elements */}
+        <svg className="absolute inset-0 w-full h-full z-[2] opacity-30" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hero-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(251, 146, 60, 0.6)" />
+              <stop offset="100%" stopColor="rgba(236, 72, 153, 0.6)" />
+            </linearGradient>
+            <linearGradient id="hero-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(59, 130, 246, 0.5)" />
+              <stop offset="100%" stopColor="rgba(168, 85, 247, 0.5)" />
+            </linearGradient>
+          </defs>
+          <circle cx="10%" cy="20%" r="80" fill="none" stroke="url(#hero-grad-1)" strokeWidth="2" className="animate-spin-slow" style={{ transformOrigin: "10% 20%" }} />
+          <circle cx="90%" cy="80%" r="100" fill="none" stroke="url(#hero-grad-2)" strokeWidth="2" className="animate-spin-reverse" style={{ transformOrigin: "90% 80%" }} />
+          <circle cx="85%" cy="15%" r="60" fill="none" stroke="rgba(250, 204, 21, 0.6)" strokeWidth="1.5" strokeDasharray="4 4" />
+        </svg>
         
         <div className="relative z-10 text-center text-white px-6 max-w-4xl">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 drop-shadow-2xl">
             TIMELESS ELEGANCE
           </h1>
-          <p className="text-lg md:text-xl mb-12 tracking-wide max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl mb-12 tracking-wide max-w-2xl mx-auto drop-shadow-lg">
             Discover the art of handwoven khadi in our new collection
           </p>
           <Link to="/collections/all">
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+            <Button size="lg" className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 hover:from-purple-700 hover:via-pink-600 hover:to-orange-600 text-white border-0 shadow-2xl">
               SHOP NOW
             </Button>
           </Link>
@@ -93,12 +134,27 @@ export default function Index() {
       </section>
 
       {/* Category Navigation */}
-      <section className="py-24 px-6 lg:px-12 border-b border-border">
-        <div className="container mx-auto">
+      <section className="relative py-24 px-6 lg:px-12 border-b border-border overflow-hidden">
+        {/* Decorative Corner Mandalas */}
+        <svg className="absolute top-0 left-0 w-48 h-48 opacity-20 -translate-x-12 -translate-y-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--chart-1))" strokeWidth="1" />
+          <circle cx="50" cy="50" r="30" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.8" />
+          <circle cx="50" cy="50" r="20" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.6" />
+        </svg>
+        <svg className="absolute bottom-0 right-0 w-48 h-48 opacity-20 translate-x-12 translate-y-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--chart-3))" strokeWidth="1" />
+          <circle cx="50" cy="50" r="30" fill="none" stroke="hsl(var(--chart-4))" strokeWidth="0.8" />
+          <circle cx="50" cy="50" r="20" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.6" />
+        </svg>
+        
+        <div className="container mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              SHOP BY CATEGORY
-            </h2>
+            <div className="relative">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
+                SHOP BY CATEGORY
+              </h2>
+              <div className="h-1 w-32 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 rounded-full mt-4" />
+            </div>
           </div>
 
           <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
@@ -146,19 +202,28 @@ export default function Index() {
       </section>
 
       {/* Featured Collection */}
-      <section className="py-24 px-6 lg:px-12">
-        <div className="container mx-auto">
+      <section className="relative py-24 px-6 lg:px-12 bg-gradient-to-br from-purple-50/50 via-pink-50/30 to-yellow-50/50 dark:from-purple-950/20 dark:via-pink-950/10 dark:to-yellow-950/10 overflow-hidden">
+        {/* Animated Decorative Circles */}
+        <div className="absolute top-20 right-20 w-64 h-64 rounded-full bg-gradient-to-br from-purple-300/20 to-pink-300/20 blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 rounded-full bg-gradient-to-br from-orange-300/20 to-yellow-300/20 blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+        
+        <div className="container mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-16">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                FEATURED COLLECTION
-              </h2>
-              <p className="text-muted-foreground text-lg">
+              <div className="relative inline-block">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
+                  FEATURED COLLECTION
+                </h2>
+                <div className="h-1 w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 rounded-full" />
+              </div>
+              <p className="text-muted-foreground text-lg mt-4">
                 Curated pieces for the modern wardrobe
               </p>
             </div>
             <Link to="/collections/all">
-              <Button variant="outline">VIEW ALL</Button>
+              <Button className="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white border-0">
+                VIEW ALL
+              </Button>
             </Link>
           </div>
 
@@ -180,25 +245,58 @@ export default function Index() {
       </section>
 
       {/* Brand Story */}
-      <section className="py-24 px-6 lg:px-12 bg-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">
-            CRAFTED WITH PURPOSE
-          </h2>
+      <section className="relative py-24 px-6 lg:px-12 bg-gradient-to-br from-purple-100/40 via-pink-100/30 to-orange-100/40 dark:from-purple-950/30 dark:via-pink-950/20 dark:to-orange-950/30 overflow-hidden">
+        {/* Decorative Mandala Background */}
+        <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="story-mandala" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
+              <g transform="translate(150, 150)">
+                <circle r="80" fill="none" stroke="hsl(var(--chart-1))" strokeWidth="2" />
+                <circle r="60" fill="none" stroke="hsl(var(--accent))" strokeWidth="1.5" />
+                <circle r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => {
+                  const x = 70 * Math.cos((angle * Math.PI) / 180);
+                  const y = 70 * Math.sin((angle * Math.PI) / 180);
+                  return `<circle key="${i}" cx="${x}" cy="${y}" r="6" fill="hsl(var(--chart-${(i % 5) + 1}))" opacity="0.6" />`;
+                }).join('')}
+              </g>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#story-mandala)" />
+        </svg>
+
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
+          <div className="relative inline-block mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
+              CRAFTED WITH PURPOSE
+            </h2>
+            <div className="h-1 w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 rounded-full mt-4" />
+          </div>
           <p className="text-lg text-muted-foreground leading-relaxed mb-12">
             Each piece in our collection tells a story of tradition, craftsmanship, and timeless beauty. 
             We work with skilled artisans to bring you handwoven khadi garments that celebrate heritage 
             while embracing contemporary design.
           </p>
           <Link to="/about">
-            <Button variant="outline">LEARN OUR STORY</Button>
+            <Button className="bg-gradient-to-r from-accent via-primary to-pink-500 hover:from-accent/90 hover:via-primary/90 hover:to-pink-600 text-white border-0 shadow-lg">
+              LEARN OUR STORY
+            </Button>
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-primary-foreground py-16 px-6 lg:px-12">
-        <div className="container mx-auto">
+      <footer className="relative bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white py-16 px-6 lg:px-12 overflow-hidden">
+        {/* Decorative Footer Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <pattern id="footer-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="20" cy="20" r="2" fill="white" />
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#footer-dots)" />
+          </svg>
+        </div>
+        <div className="container mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
               <h3 className="text-2xl font-bold mb-6">PRIYASI</h3>
