@@ -133,60 +133,94 @@ All colors MUST be HSL.
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) scale(1);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-25px) scale(1.02);
   }
 }
 
 @keyframes wave {
   0% {
-    transform: translateX(-100%) skewY(2deg);
+    transform: translateX(-100%) skewY(-3deg) scaleY(1);
+  }
+  50% {
+    transform: translateX(0%) skewY(3deg) scaleY(1.1);
   }
   100% {
-    transform: translateX(100%) skewY(2deg);
+    transform: translateX(100%) skewY(-3deg) scaleY(1);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
   }
 }
 
 .animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+  animation: spin-slow 30s linear infinite;
 }
 
 .animate-spin-reverse {
-  animation: spin-reverse 15s linear infinite;
+  animation: spin-reverse 20s linear infinite;
+}
+
+.animate-spin-slow-alt {
+  animation: spin-slow 25s linear infinite;
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
 }
 
 .cloth-wave {
   position: absolute;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(0, 0, 0, 0.03) 50%, transparent 70%);
-  animation: wave 8s linear infinite;
+  width: 300%;
+  height: 150px;
+  background: linear-gradient(90deg, 
+    transparent,
+    rgba(255, 237, 213, 0.15) 20%,
+    rgba(254, 215, 170, 0.25) 40%,
+    rgba(251, 191, 36, 0.2) 50%,
+    rgba(254, 215, 170, 0.25) 60%,
+    rgba(255, 237, 213, 0.15) 80%,
+    transparent
+  );
+  animation: wave linear infinite;
+  filter: blur(30px);
 }
 
 .cloth-wave-1 {
-  top: -50%;
-  left: -50%;
-  animation-duration: 12s;
+  top: 15%;
+  animation-duration: 18s;
+  opacity: 0.6;
+  height: 200px;
 }
 
 .cloth-wave-2 {
-  top: -30%;
-  left: -30%;
-  animation-duration: 10s;
-  animation-delay: -2s;
-  background: linear-gradient(-45deg, transparent 30%, rgba(0, 0, 0, 0.02) 50%, transparent 70%);
+  top: 45%;
+  animation-duration: 25s;
+  opacity: 0.4;
+  height: 180px;
+  animation-delay: -5s;
 }
 
 .cloth-wave-3 {
-  top: -40%;
-  left: -40%;
-  animation-duration: 15s;
-  animation-delay: -4s;
-  background: linear-gradient(90deg, transparent 30%, rgba(0, 0, 0, 0.025) 50%, transparent 70%);
+  top: 70%;
+  animation-duration: 22s;
+  opacity: 0.5;
+  height: 220px;
+  animation-delay: -10s;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
 }
