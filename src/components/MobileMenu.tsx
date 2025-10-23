@@ -7,11 +7,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, X } from "lucide-react";
+import { Menu, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useWishlistStore } from "@/stores/wishlistStore";
+import { Badge } from "@/components/ui/badge";
 
 export const MobileMenu = () => {
   const [open, setOpen] = useState(false);
+  const wishlistCount = useWishlistStore(state => state.items.length);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -60,7 +63,20 @@ export const MobileMenu = () => {
           >
             COLLECTIONS
           </Link>
-          <div className="border-t border-border pt-6 mt-4">
+          <div className="border-t border-border pt-6 mt-4 space-y-6">
+            <Link 
+              to="/wishlist" 
+              className="text-lg font-medium tracking-wider hover:text-primary transition-colors flex items-center gap-2"
+              onClick={() => setOpen(false)}
+            >
+              <Heart className="h-5 w-5" />
+              WISHLIST
+              {wishlistCount > 0 && (
+                <Badge variant="secondary" className="ml-auto">
+                  {wishlistCount}
+                </Badge>
+              )}
+            </Link>
             <Link 
               to="/about" 
               className="text-lg font-medium tracking-wider hover:text-primary transition-colors block"

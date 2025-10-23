@@ -4,17 +4,22 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { useWishlistStore } from "@/stores/wishlistStore";
 import { toast } from "sonner";
-import { Sparkles, TrendingUp } from "lucide-react";
+import { Sparkles, TrendingUp, Heart, Eye } from "lucide-react";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: ShopifyProduct;
   badge?: "new" | "bestseller" | "featured" | null;
+  onQuickView?: (product: ShopifyProduct) => void;
 }
 
-export const ProductCard = ({ product, badge = null }: ProductCardProps) => {
+export const ProductCard = ({ product, badge = null, onQuickView }: ProductCardProps) => {
   const addItem = useCartStore(state => state.addItem);
+  const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlistStore();
   const { node } = product;
+  const [isHovered, setIsHovered] = useState(false);
   
   const imageUrl = node.images.edges[0]?.node.url;
   const price = node.priceRange.minVariantPrice;
@@ -34,6 +39,8 @@ export const ProductCard = ({ product, badge = null }: ProductCardProps) => {
   };
 
   const badgeConfig = getBadgeConfig();
+
+  const inWishlist = isInWishlist(node.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -56,14 +63,64 @@ export const ProductCard = ({ product, badge = null }: ProductCardProps) => {
     });
   };
 
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (inWishlist) {
+      removeFromWishlist(node.id);
+      toast.success("Removed from wishlist");
+    } else {
+      addToWishlist(product);
+      toast.success("Added to wishlist");
+    }
+  };
+
+  const handleQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onQuickView?.(product);
+  };
+
   return (
-    <Link to={`/product/${node.handle}`} className="group">
+    <Link 
+      to={`/product/${node.handle}`} 
+      className="group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="relative overflow-hidden bg-secondary aspect-[3/4] mb-6">
-        {badgeConfig && (
-          <Badge className={`absolute top-4 right-4 z-10 ${badgeConfig.className} flex items-center gap-1 text-xs tracking-wider`}>
-            <badgeConfig.icon className="w-3 h-3" />
-            {badgeConfig.label}
-          </Badge>
+        {/* Wishlist & Quick View buttons */}
+        <div className="absolute top-4 left-4 right-4 z-10 flex items-start justify-between gap-2">
+          <button
+            onClick={handleWishlistToggle}
+            className="p-2 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-colors"
+            aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+          >
+            <Heart 
+              className={`w-4 h-4 transition-colors ${
+                inWishlist ? "fill-red-500 text-red-500" : "text-gray-700"
+              }`} 
+            />
+          </button>
+          
+          {badgeConfig && (
+            <Badge className={`${badgeConfig.className} flex items-center gap-1 text-xs tracking-wider`}>
+              <badgeConfig.icon className="w-3 h-3" />
+              {badgeConfig.label}
+            </Badge>
+          )}
+        </div>
+
+        {/* Quick View button */}
+        {onQuickView && isHovered && (
+          <button
+            onClick={handleQuickView}
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-all"
+            aria-label="Quick view"
+          >
+            <Eye className="w-4 h-4 text-gray-700" />
+          </button>
         )}
         {imageUrl ? (
           <img

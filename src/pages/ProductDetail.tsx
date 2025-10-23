@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Heart } from "lucide-react";
 import { fetchProductByHandle } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { useWishlistStore } from "@/stores/wishlistStore";
+import { useRecentlyViewedStore } from "@/stores/recentlyViewedStore";
 import { toast } from "sonner";
 import { CartDrawer } from "@/components/CartDrawer";
+import { SizeGuide } from "@/components/SizeGuide";
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
@@ -15,6 +18,8 @@ export default function ProductDetail() {
   const [selectedVariant, setSelectedVariant] = useState<any>(null);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const addItem = useCartStore(state => state.addItem);
+  const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlistStore();
+  const addToRecentlyViewed = useRecentlyViewedStore(state => state.addProduct);
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -24,6 +29,9 @@ export default function ProductDetail() {
       try {
         const data = await fetchProductByHandle(handle);
         setProduct(data);
+        
+        // Track in recently viewed
+        addToRecentlyViewed(handle);
         
         if (data?.variants?.edges?.[0]) {
           const defaultVariant = data.variants.edges[0].node;
@@ -44,7 +52,7 @@ export default function ProductDetail() {
     };
 
     loadProduct();
-  }, [handle]);
+  }, [handle, addToRecentlyViewed]);
 
   const handleOptionChange = (optionName: string, value: string) => {
     const newOptions = { ...selectedOptions, [optionName]: value };
@@ -60,6 +68,8 @@ export default function ProductDetail() {
       setSelectedVariant(variant.node);
     }
   };
+
+  const inWishlist = product ? isInWishlist(product.id) : false;
 
   const handleAddToCart = () => {
     if (!selectedVariant || !product) return;
@@ -77,6 +87,18 @@ export default function ProductDetail() {
     toast.success("Added to cart", {
       description: `${product.title} has been added to your cart`,
     });
+  };
+
+  const handleWishlistToggle = () => {
+    if (!product) return;
+    
+    if (inWishlist) {
+      removeFromWishlist(product.id);
+      toast.success("Removed from wishlist");
+    } else {
+      addToWishlist({ node: product });
+      toast.success("Added to wishlist");
+    }
   };
 
   if (loading) {
@@ -157,6 +179,24 @@ export default function ProductDetail() {
               <p className="text-2xl font-medium mb-8">
                 {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
               </p>
+            </div>
+
+            {/* Size Guide */}
+            <div className="flex items-center justify-between">
+              <SizeGuide />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleWishlistToggle}
+                className="gap-2"
+              >
+                <Heart 
+                  className={`h-4 w-4 ${
+                    inWishlist ? "fill-red-500 text-red-500" : ""
+                  }`} 
+                />
+                {inWishlist ? "In Wishlist" : "Add to Wishlist"}
+              </Button>
             </div>
 
             {/* Variant Selection */}

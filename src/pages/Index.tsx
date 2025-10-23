@@ -2,18 +2,25 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
 import { CartDrawer } from "@/components/CartDrawer";
 import { MobileMenu } from "@/components/MobileMenu";
 import { SearchDialog } from "@/components/SearchDialog";
+import { ProductQuickView } from "@/components/ProductQuickView";
+import { RecentlyViewed } from "@/components/RecentlyViewed";
+import { useWishlistStore } from "@/stores/wishlistStore";
 import heroImage from "@/assets/priyasi-hero.jpg";
 
 export default function Index() {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("all");
+  const [quickViewProduct, setQuickViewProduct] = useState<ShopifyProduct | null>(null);
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
+  const wishlistCount = useWishlistStore(state => state.items.length);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -37,6 +44,11 @@ export default function Index() {
     return products.filter(p => 
       p.node.title.toLowerCase().includes(activeCategory.toLowerCase())
     );
+  };
+
+  const handleQuickView = (product: ShopifyProduct) => {
+    setQuickViewProduct(product);
+    setQuickViewOpen(true);
   };
 
   return (
@@ -79,6 +91,19 @@ export default function Index() {
 
             <div className="flex items-center gap-4">
               <SearchDialog />
+              <Link to="/wishlist" className="relative hidden md:block">
+                <Button variant="ghost" size="icon">
+                  <Heart className="h-5 w-5" />
+                  {wishlistCount > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs"
+                    >
+                      {wishlistCount}
+                    </Badge>
+                  )}
+                </Button>
+              </Link>
               <CartDrawer />
             </div>
           </div>
@@ -232,7 +257,12 @@ export default function Index() {
               {featuredProducts.map((product, idx) => {
                 const badge = idx === 0 ? "new" : idx === 1 ? "bestseller" : idx === 2 ? "featured" : null;
                 return (
-                  <ProductCard key={product.node.id} product={product} badge={badge} />
+                  <ProductCard 
+                    key={product.node.id} 
+                    product={product} 
+                    badge={badge}
+                    onQuickView={handleQuickView}
+                  />
                 );
               })}
             </div>
@@ -243,6 +273,9 @@ export default function Index() {
           )}
         </div>
       </section>
+
+      {/* Recently Viewed Section */}
+      <RecentlyViewed />
 
       {/* Brand Story */}
       <section className="relative py-24 px-6 lg:px-12 bg-gradient-to-br from-purple-100/40 via-pink-100/30 to-orange-100/40 dark:from-purple-950/30 dark:via-pink-950/20 dark:to-orange-950/30 overflow-hidden">
@@ -343,6 +376,13 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Quick View Modal */}
+      <ProductQuickView 
+        product={quickViewProduct}
+        open={quickViewOpen}
+        onOpenChange={setQuickViewOpen}
+      />
     </div>
   );
 }
