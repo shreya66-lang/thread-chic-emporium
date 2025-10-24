@@ -11,6 +11,13 @@ import { MobileMenu } from "@/components/MobileMenu";
 import { SearchDialog } from "@/components/SearchDialog";
 import { ProductQuickView } from "@/components/ProductQuickView";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
+import { NewsletterSubscription } from "@/components/NewsletterSubscription";
+import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
+import { InstagramFeed } from "@/components/InstagramFeed";
+import { ShopTheLook } from "@/components/ShopTheLook";
+import { StyleGuide } from "@/components/StyleGuide";
+import { OutfitSuggestions } from "@/components/OutfitSuggestions";
+import { TrustBanner } from "@/components/TrustBanner";
 import { useWishlistStore } from "@/stores/wishlistStore";
 import heroImage from "@/assets/priyasi-hero.jpg";
 
@@ -158,6 +165,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Trust Banner */}
+      <TrustBanner />
+
       {/* Category Navigation */}
       <section className="relative py-24 px-6 lg:px-12 border-b border-border overflow-hidden">
         {/* Decorative Corner Mandalas */}
@@ -276,6 +286,24 @@ export default function Index() {
 
       {/* Recently Viewed Section */}
       <RecentlyViewed />
+
+      {/* Shop The Look Section */}
+      <ShopTheLook />
+
+      {/* Outfit Suggestions Section */}
+      <OutfitSuggestions />
+
+      {/* Testimonials Carousel */}
+      <TestimonialsCarousel />
+
+      {/* Style Guide & Blog Section */}
+      <StyleGuide />
+
+      {/* Instagram Feed Section */}
+      <InstagramFeed />
+
+      {/* Newsletter Subscription */}
+      <NewsletterSubscription />
 
       {/* Brand Story */}
       <section className="relative py-24 px-6 lg:px-12 bg-gradient-to-br from-purple-100/40 via-pink-100/30 to-orange-100/40 dark:from-purple-950/30 dark:via-pink-950/20 dark:to-orange-950/30 overflow-hidden">

@@ -10,6 +10,9 @@ import { useRecentlyViewedStore } from "@/stores/recentlyViewedStore";
 import { toast } from "sonner";
 import { CartDrawer } from "@/components/CartDrawer";
 import { SizeGuide } from "@/components/SizeGuide";
+import { SecurePaymentBadges } from "@/components/SecurePaymentBadges";
+import { ReturnPolicyBanner } from "@/components/ReturnPolicyBanner";
+import { LimitedStockIndicator } from "@/components/SaleCountdown";
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
