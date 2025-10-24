@@ -14,9 +14,6 @@ import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { NewsletterSubscription } from "@/components/NewsletterSubscription";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { InstagramFeed } from "@/components/InstagramFeed";
-import { ShopTheLook } from "@/components/ShopTheLook";
-import { StyleGuide } from "@/components/StyleGuide";
-import { OutfitSuggestions } from "@/components/OutfitSuggestions";
 import { TrustBanner } from "@/components/TrustBanner";
 import { useWishlistStore } from "@/stores/wishlistStore";
 import heroImage from "@/assets/priyasi-hero.jpg";
@@ -90,10 +87,10 @@ export default function Index() {
             </Link>
 
             <div className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
-              <Link to="/collections/all" className="hover:text-primary transition-colors">NEW ARRIVALS</Link>
-              <Link to="/collections/kurtas" className="hover:text-primary transition-colors">KURTAS</Link>
-              <Link to="/collections/sarees" className="hover:text-primary transition-colors">SAREES</Link>
-              <Link to="/collections/all" className="hover:text-primary transition-colors">COLLECTIONS</Link>
+              <Link to="/collections/all" className="hover:text-primary transition-colors">SHOP</Link>
+              <Link to="/blog" className="hover:text-primary transition-colors">STYLE GUIDE</Link>
+              <Link to="/about" className="hover:text-primary transition-colors">ABOUT</Link>
+              <Link to="/contact" className="hover:text-primary transition-colors">CONTACT</Link>
             </div>
 
             <div className="flex items-center gap-4">
@@ -287,17 +284,8 @@ export default function Index() {
       {/* Recently Viewed Section */}
       <RecentlyViewed />
 
-      {/* Shop The Look Section */}
-      <ShopTheLook />
-
-      {/* Outfit Suggestions Section */}
-      <OutfitSuggestions />
-
       {/* Testimonials Carousel */}
       <TestimonialsCarousel />
-
-      {/* Style Guide & Blog Section */}
-      <StyleGuide />
 
       {/* Instagram Feed Section */}
       <InstagramFeed />
@@ -380,6 +368,7 @@ export default function Index() {
               <h4 className="font-bold text-sm tracking-wider mb-4">COMPANY</h4>
               <ul className="space-y-2 text-sm opacity-80">
                 <li><Link to="/about" className="hover:opacity-100 transition-opacity">About Us</Link></li>
+                <li><Link to="/blog" className="hover:opacity-100 transition-opacity">Style Guide</Link></li>
                 <li><Link to="/contact" className="hover:opacity-100 transition-opacity">Contact</Link></li>
                 <li><Link to="/faq" className="hover:opacity-100 transition-opacity">FAQ</Link></li>
               </ul>

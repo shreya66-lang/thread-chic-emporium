@@ -19,7 +19,7 @@ export const MobileMenu = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden">
+        <Button variant="ghost" size="icon">
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
@@ -29,7 +29,7 @@ export const MobileMenu = () => {
         </SheetHeader>
         <nav className="flex flex-col gap-6 mt-8">
           <Link 
-            to="/" 
+            to="/home" 
             className="text-lg font-medium tracking-wider hover:text-primary transition-colors"
             onClick={() => setOpen(false)}
           >
@@ -40,7 +40,7 @@ export const MobileMenu = () => {
             className="text-lg font-medium tracking-wider hover:text-primary transition-colors"
             onClick={() => setOpen(false)}
           >
-            NEW ARRIVALS
+            SHOP ALL
           </Link>
           <Link 
             to="/collections/kurtas" 
@@ -57,11 +57,11 @@ export const MobileMenu = () => {
             SAREES
           </Link>
           <Link 
-            to="/collections/all" 
+            to="/blog" 
             className="text-lg font-medium tracking-wider hover:text-primary transition-colors"
             onClick={() => setOpen(false)}
           >
-            COLLECTIONS
+            STYLE GUIDE
           </Link>
           <div className="border-t border-border pt-6 mt-4 space-y-6">
             <Link 
@@ -83,6 +83,20 @@ export const MobileMenu = () => {
               onClick={() => setOpen(false)}
             >
               ABOUT US
+            </Link>
+            <Link 
+              to="/contact" 
+              className="text-lg font-medium tracking-wider hover:text-primary transition-colors block"
+              onClick={() => setOpen(false)}
+            >
+              CONTACT
+            </Link>
+            <Link 
+              to="/faq" 
+              className="text-lg font-medium tracking-wider hover:text-primary transition-colors block"
+              onClick={() => setOpen(false)}
+            >
+              FAQ
             </Link>
           </div>
         </nav>
