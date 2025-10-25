@@ -22,14 +22,24 @@ export const NewsletterSubscription = () => {
 
     setLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { error } = await supabase.functions.invoke("send-newsletter-email", {
+        body: { email },
+      });
+
+      if (error) throw error;
+
       toast.success("Welcome to Priyasi!", {
-        description: "You'll receive 10% off your first order via email",
+        description: "Check your email for a 10% discount code!",
       });
       setEmail("");
+    } catch (error: any) {
+      console.error("Error subscribing to newsletter:", error);
+      toast.error("Failed to subscribe. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (

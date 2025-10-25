@@ -35,14 +35,24 @@ export default function Contact() {
 
     setLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: { ...formData, subject: "Contact Form Submission" },
+      });
+
+      if (error) throw error;
+
       toast.success("Message sent successfully!", {
-        description: "We'll get back to you within 24 hours"
+        description: "Check your email for confirmation. We'll respond soon!"
       });
       setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (error: any) {
+      console.error("Error sending contact form:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const contactInfo = [

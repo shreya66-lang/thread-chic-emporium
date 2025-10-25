@@ -13,8 +13,8 @@ import { ProductQuickView } from "@/components/ProductQuickView";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { NewsletterSubscription } from "@/components/NewsletterSubscription";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
-import { InstagramFeed } from "@/components/InstagramFeed";
 import { TrustBanner } from "@/components/TrustBanner";
+import { CustomerFeedback } from "@/components/CustomerFeedback";
 import { useWishlistStore } from "@/stores/wishlistStore";
 import heroImage from "@/assets/priyasi-hero.jpg";
 
@@ -287,8 +287,8 @@ export default function Index() {
       {/* Testimonials Carousel */}
       <TestimonialsCarousel />
 
-      {/* Instagram Feed Section */}
-      <InstagramFeed />
+      {/* Customer Feedback */}
+      <CustomerFeedback />
 
       {/* Newsletter Subscription */}
       <NewsletterSubscription />
